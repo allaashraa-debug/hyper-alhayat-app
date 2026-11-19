@@ -1,0 +1,6 @@
+{
+  "name": "Hyper Al-Hayat",
+  "description": "هايبر الحياة - تطبيق السوبرماركت المتكامل لتسوق وتوصيل البقالة والطلبات وإدارة المبيعات",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

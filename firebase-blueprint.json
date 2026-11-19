@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Supermarket product item available in Hyper Al-Hayat catalog",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the product in Arabic"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category identifier (fruits, dairy, grocery, beverages, bakery, cleaning)"
+        },
+        "price": {
+          "type": "number",
+          "description": "Price in Egyptian Pounds (EGP)"
+        },
+        "weight": {
+          "type": "string",
+          "description": "Packaging unit or weight (e.g. 1 kg, 800 ml)"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to product thumbnail or image"
+        },
+        "isAvailable": {
+          "type": "boolean",
+          "description": "Stock availability flag"
+        }
+      },
+      "required": ["name", "category", "price", "weight", "imageUrl"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer grocery order and digital invoice",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user account ID"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Full name of recipient"
+        },
+        "customerPhone": {
+          "type": "string",
+          "description": "Contact phone number"
+        },
+        "customerAddress": {
+          "type": "string",
+          "description": "Detailed street delivery address"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": ["cash", "card"],
+          "description": "Payment method chosen at checkout"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["new", "processing", "completed", "archived"],
+          "description": "Fulfillment status of the order"
+        },
+        "itemsJson": {
+          "type": "string",
+          "description": "Formatted items breakdown"
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "Sum of item prices"
+        },
+        "deliveryFee": {
+          "type": "number",
+          "description": "Shipping fee (0 if above free threshold)"
+        },
+        "grandTotal": {
+          "type": "number",
+          "description": "Total amount due in EGP"
+        }
+      },
+      "required": ["userId", "customerName", "customerPhone", "customerAddress", "paymentMethod", "status", "itemsJson", "subtotal", "deliveryFee", "grandTotal"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": {
+        "$ref": "#/entities/Product"
+      },
+      "description": "Supermarket product catalog items available for customers"
+    },
+    "/users/{userId}/orders/{orderId}": {
+      "schema": {
+        "$ref": "#/entities/Order"
+      },
+      "description": "Orders placed by authenticated customers"
+    }
+  }
+}
